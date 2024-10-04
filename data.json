@@ -1,0 +1,38 @@
+[
+  {
+    "QuoteId": 1,
+    "quoteTitle": "Do not dwell in the past, do not dream of the future, concentrate the mind on the present moment.",
+    "author": "Buddha",
+    "category": "mindflness"
+  },
+  {
+    "QuoteId": 2,
+    "quoteTitle": "Be the change that you wish to see in the world.",
+    "author": "Mahatma Gandhi",
+    "category": "inspiration"
+  },
+  {
+    "QuoteId": 3,
+    "quoteTitle": "Arise, awake, and stop not till the goal is reached.",
+    "author": "Swami Vivekananda",
+    "category": "motivation"
+  },
+  {
+    "QuoteId": 4,
+    "quoteTitle": "You cannot shake hands with a clenched fist.",
+    "author": "Indira Gandhi",
+    "category": "peace"
+  },
+  {
+    "QuoteId": 5,
+    "quoteTitle": "The highest education is that which does not merely give us information but makes our life in harmony with all existence.",
+    "author": "Rabindranath Tagore",
+    "category": "education"
+  },
+  {
+    "quoteTitle": "The best way  to lose yourself in the service of others.",
+    "author": "Vivekananda",
+    "category": "IT & Programming",
+    "QuoteId": 6
+  }
+]
