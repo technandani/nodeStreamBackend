@@ -4,16 +4,14 @@ const app = express();
 const cors = require('cors');
 const port = 5000;
 
-app.use(cors()); // Allow cross-origin requests
+app.use(cors()); 
 
-// Serve the homepage
 app.get("/", (req, res) => {
   res.send("Welcome to the Video Streaming Service");
 });
 
-// Serve video streaming route
 app.get("/video/:videoName", (req, res) => {
-  const videoPath = `${__dirname}/${req.params.videoName}.mp4`; // Serve video based on the name provided in the request params
+  const videoPath = `${__dirname}/${req.params.videoName}.mp4`;
 
   fs.stat(videoPath, (err, stat) => {
     if (err || !stat) {
@@ -22,12 +20,18 @@ app.get("/video/:videoName", (req, res) => {
 
     const fileSize = stat.size;
     const range = req.headers.range;
-
     if (!range) {
-      return res.status(400).send("Requires Range header");
+      const headers = {
+        "Content-Length": fileSize,
+        "Content-Type": "video/mp4",
+      };
+
+      res.writeHead(200, headers);
+      fs.createReadStream(videoPath).pipe(res);
+      return;
     }
 
-    const chunkSize = 10 ** 6; // 1MB chunk size
+    const chunkSize = 10 ** 6; 
     const start = Number(range.replace(/\D/g, ""));
     const end = Math.min(start + chunkSize, fileSize - 1);
 
