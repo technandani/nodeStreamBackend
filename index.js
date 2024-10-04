@@ -11,7 +11,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/video/:videoName", (req, res) => {
-  const videoPath = `${__dirname}/${req.params.videoName}.mp4`;
+  const videoPath = `${__dirname}/videos/${req.params.videoName}.mp4`;
 
   fs.stat(videoPath, (err, stat) => {
     if (err || !stat) {
