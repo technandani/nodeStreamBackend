@@ -2,16 +2,17 @@ const express = require('express');
 const fs = require('fs');
 const app = express();
 const cors = require('cors');
+const path = require('path');
 const port = 5000;
 
-app.use(cors()); 
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("Welcome to the Video Streaming Service");
 });
 
 app.get("/video/:videoName", (req, res) => {
-  const videoPath = `${__dirname}/videos/${req.params.videoName}.mp4`;
+  const videoPath = path.join(__dirname, 'videos', `${req.params.videoName}.mp4`);
 
   fs.stat(videoPath, (err, stat) => {
     if (err || !stat) {
@@ -31,7 +32,7 @@ app.get("/video/:videoName", (req, res) => {
       return;
     }
 
-    const chunkSize = 10 ** 6; 
+    const chunkSize = 10 ** 6;
     const start = Number(range.replace(/\D/g, ""));
     const end = Math.min(start + chunkSize, fileSize - 1);
 
