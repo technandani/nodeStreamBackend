@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
 
 app.get("/video/:videoName", (req, res) => {
   try {
-    const videoPath = path.join('./videos', `${req.params.videoName}.mp4`);
+    const videoPath = path.join(__dirname, 'public', 'videos', `${req.params.videoName}.mp4`);
 
   fs.stat(videoPath, (err, stat) => {
     if (err || !stat) {
