@@ -3,7 +3,7 @@ const fs = require('fs');
 const app = express();
 const cors = require('cors');
 const path = require('path');
-const port = 5000;
+const port = 5500;
 
 app.use(cors());
 
@@ -12,7 +12,8 @@ app.get("/", (req, res) => {
 });
 
 app.get("/video/:videoName", (req, res) => {
-  const videoPath = path.join(__dirname, 'videos', `${req.params.videoName}.mp4`);
+  try {
+    const videoPath = path.join(__dirname, 'videos', `${req.params.videoName}.mp4`);
 
   fs.stat(videoPath, (err, stat) => {
     if (err || !stat) {
@@ -49,6 +50,10 @@ app.get("/video/:videoName", (req, res) => {
     const fileStream = fs.createReadStream(videoPath, { start, end });
     fileStream.pipe(res);
   });
+  } catch (error) {
+    console.log(error);
+    res.send("not found this video");
+  }
 });
 
 app.listen(port, () => {
