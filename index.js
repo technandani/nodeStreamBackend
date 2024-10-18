@@ -3,8 +3,8 @@ const fs = require('fs');
 const app = express();
 const cors = require('cors');
 const path = require('path');
-const port = 5500;
-
+const port = 8000;
+app.use(express.static('public'));
 app.use(cors());
 
 app.get("/", (req, res) => {
@@ -14,6 +14,8 @@ app.get("/", (req, res) => {
 app.get("/video/:videoName", (req, res) => {
   try {
     const videoPath = path.join(__dirname, 'public', 'videos', `${req.params.videoName}.mp4`);
+console.log(req.params.videoName);
+console.log(videoPath);
 
   fs.stat(videoPath, (err, stat) => {
     if (err || !stat) {
