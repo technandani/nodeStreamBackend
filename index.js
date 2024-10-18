@@ -17,6 +17,7 @@ app.get("/video/:videoName", (req, res) => {
 
   fs.stat(videoPath, (err, stat) => {
     if (err || !stat) {
+      console.log("the error is", err);
       return res.status(404).send("File not found");
     }
 
