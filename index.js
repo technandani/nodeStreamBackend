@@ -5,7 +5,8 @@ const cors = require('cors');
 const path = require('path');
 const port = 8000;
 // app.use(express.static('public'));
-app.use(express.static(path.join(__dirname, "public")));
+// app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.resolve("./public")));
 app.use(cors());
 
 app.get("/", (req, res) => {
