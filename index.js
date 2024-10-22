@@ -36,7 +36,7 @@ app.get("/video/:videoIndex", (req, res) => {
 
   // Directly use the URL from the object, no need for path resolution
   const videoUrl = videoUrls[videoIndex];
-  res.sendFile(`${__dirname}/public${videoUrl}`);  // Serve the video file
+  res.sendFile(`${__dirname}/${videoUrl}`);  // Serve the video file
 });
 
 // Start the server
