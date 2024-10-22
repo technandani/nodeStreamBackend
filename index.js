@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
 const app = express();
 const port = 5000;
 
@@ -10,11 +9,11 @@ app.use(cors());
 // Serve static files from the 'public' folder
 app.use(express.static('public'));
 
-// Video URLs (forward slashes)
+// Video URLs stored directly as relative paths
 const videoUrls = [
-  "videos/multer.mp4",
-  "videos/multer.mp4",
-  "videos/multer.mp4"
+  "/videos/multer.mp4",
+  "/videos/multer.mp4",
+  "/videos/multer.mp4"
 ];
 
 // Welcome route
@@ -35,9 +34,9 @@ app.get("/video/:videoIndex", (req, res) => {
     return res.status(404).send("Video not found");
   }
 
-  // Use path to resolve the full file path and stream the video
-  const videoPath = path.join(__dirname, "public", videoUrls[videoIndex]);
-  res.sendFile(videoPath);
+  // Directly use the URL from the object, no need for path resolution
+  const videoUrl = videoUrls[videoIndex];
+  res.sendFile(`${__dirname}/public${videoUrl}`);  // Serve the video file
 });
 
 // Start the server
