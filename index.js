@@ -7,6 +7,12 @@ const port = 5000;
 
 app.use(cors());
 
+app.use(cors({
+  origin: "https://node-stream-gamma.vercel.app/",
+  methods: ["GET", "POST"],
+  credentials: true,
+}));
+
 // Serve static files from the "public" diretctory
 app.use(express.static(path.join(__dirname, 'public')));
 
