@@ -8,7 +8,7 @@ const port = 5000;
 app.use(cors());
 
 app.use(cors({
-  origin: "https://node-stream-gamma.vercel.app/",
+  origin: "https://node-stream-gamma.vercel.app",
   methods: ["GET", "POST"],
   credentials: true,
 }));
