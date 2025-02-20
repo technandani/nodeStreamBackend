@@ -3,29 +3,11 @@ const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
 const app = express();
-const port = 5000;
 
 app.use(cors());
 
-app.use(cors({
-  origin: "https://node-stream-gamma.vercel.app",
-  methods: ["GET", "POST"],
-  credentials: true,
-}));
-
-// Serve static files from the "public" diretctory
+// Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, 'public')));
-
-// List of available videos
-const videoUrls = [
-  "videos/multer.mp4",
-  "videos/nodestream.mp4",
-];
-
-// Route to list available videos
-app.get("/videos", (req, res) => {
-  res.json(videoUrls);
-});
 
 // Route to stream a specific video
 app.get("/video/:videoName", (req, res) => {
@@ -38,9 +20,8 @@ app.get("/video/:videoName", (req, res) => {
 
   const stat = fs.statSync(videoPath);
   const fileSize = stat.size;
-
-  // Handle range requests for video streaming
   const range = req.headers.range;
+
   if (range) {
     const parts = range.replace(/bytes=/, "").split("-");
     const start = parseInt(parts[0], 10);
@@ -57,7 +38,6 @@ app.get("/video/:videoName", (req, res) => {
       "Content-Type": "video/mp4",
     });
 
-    // Create a read stream for the requested range
     const fileStream = fs.createReadStream(videoPath, { start, end });
     fileStream.pipe(res);
   } else {
@@ -69,12 +49,8 @@ app.get("/video/:videoName", (req, res) => {
   }
 });
 
-//defaulat route
-app.get("/", (req, res) => {
-  res.send("Welcome to the Video Streaming Service");
-});
-
-
+// Start the server
+const port = process.env.PORT || 5000;
 app.listen(port, () => {
-  console.log(`Video Streaming Server is running at http://localhost:${port}`);
+  console.log(`Server is running on port ${port}`);
 });
